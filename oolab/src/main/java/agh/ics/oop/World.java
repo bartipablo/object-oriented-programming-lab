@@ -1,16 +1,11 @@
 package agh.ics.oop;
 
-import java.util.Scanner;
-
 public class World {
     public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
+        Direction[] actions = changeStringToEnumArray(args);
+
         System.out.println("Start");
-
-        String userArguments = scanner.nextLine();
-        Direction[] actions = changeStringToEnumArray(userArguments);
         run(actions);
-
         System.out.println("Stop");
     }
 
@@ -21,22 +16,25 @@ public class World {
                 case BACKWARD -> System.out.println("Zwierzak idzie do tyłu");
                 case RIGHT    -> System.out.println("Zwierzak skręca w prawo");
                 case LEFT     -> System.out.println("Zwierzak skręca w lewo");
+                default       -> System.out.println("Nieznany ruch");
             }
         }
     }
 
-    public static Direction[] changeStringToEnumArray(String stringArgument){
-        Direction[] enumArguments = new Direction[stringArgument.length()];
-
-        for (int i = 0; i < stringArgument.length(); i++){
-            switch(stringArgument.charAt(i)){
-                case 'f' -> enumArguments[i] = Direction.FORWARD;
-                case 'b' -> enumArguments[i] = Direction.BACKWARD;
-                case 'r' -> enumArguments[i] = Direction.RIGHT;
-                case 'l' -> enumArguments[i] = Direction.LEFT;
-                default  -> enumArguments[i] = Direction.NONE;
+    public static Direction[] changeStringToEnumArray(String[] args){
+        Direction[] EnumArray = new Direction[args.length];
+        for (int i = 0; i < args.length; i++){
+            switch(args[i]){
+                case "f" -> EnumArray[i] = Direction.FORWARD;
+                case "b" -> EnumArray[i] = Direction.BACKWARD;
+                case "l" -> EnumArray[i] = Direction.LEFT;
+                case "r" -> EnumArray[i] = Direction.RIGHT;
+                default  -> EnumArray[i] = Direction.NONE;
             }
         }
-        return enumArguments;
+        return EnumArray;
     }
+
+
+
 }
