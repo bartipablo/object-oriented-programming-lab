@@ -99,7 +99,7 @@ public class Vector2DTest {
         Vector2D testVector2 = new Vector2D(11, 24);
         Vector2D testVector3 = new Vector2D(13, 7);
         assertEquals(testVector1.hashCode(), testVector2.hashCode());
-        assertNotEquals(testVector1.hashCode(), testVector2);
+        assertNotEquals(testVector1.hashCode(), testVector3.hashCode());
     }
 
 }
