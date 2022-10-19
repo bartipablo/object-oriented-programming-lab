@@ -2,6 +2,9 @@ package agh.ics.oop;
 
 public class World {
     public static void main(String[] args){
+        Animal x = new Animal();
+        System.out.println(x.toString());
+
         Direction[] actions = changeStringToEnumArray(args);
 
         System.out.println("Start");
