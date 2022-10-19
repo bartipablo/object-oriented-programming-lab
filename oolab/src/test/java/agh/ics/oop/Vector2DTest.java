@@ -2,6 +2,7 @@ package agh.ics.oop;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -90,6 +91,15 @@ public class Vector2DTest {
     public void oppositeTest() {
         Vector2D testVector = new Vector2D(-3, 5);
         assertEquals(testVector.opposite(), new Vector2D(3, -5));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Vector2D testVector1 = new Vector2D(11, 24);
+        Vector2D testVector2 = new Vector2D(11, 24);
+        Vector2D testVector3 = new Vector2D(13, 7);
+        assertEquals(testVector1.hashCode(), testVector2.hashCode());
+        assertNotEquals(testVector1.hashCode(), testVector2);
     }
 
 }

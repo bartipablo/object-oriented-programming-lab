@@ -15,35 +15,35 @@ public class Vector2D {
     }
 
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return "(" + this.x + ", " + this.y + ")";
     }
 
     public boolean precedes(Vector2D otherVector) {
-        return (x <= otherVector.x) && (y <= otherVector.y);
+        return (this.x <= otherVector.x) && (this.y <= otherVector.y);
     }
 
     public boolean follows(Vector2D otherVector) {
-        return (x >= otherVector.x) && (y >= otherVector.y);
+        return (this.x >= otherVector.x) && (this.y >= otherVector.y);
     }
 
     public Vector2D add(Vector2D otherVector) {
-        return new Vector2D(x + otherVector.x, y + otherVector.y);
+        return new Vector2D(this.x + otherVector.x, this.y + otherVector.y);
     }
 
     public Vector2D substract(Vector2D otherVector) {
-        return new Vector2D(x - otherVector.x, y - otherVector.y);
+        return new Vector2D(this.x - otherVector.x, this.y - otherVector.y);
     }
 
     public Vector2D upperRight(Vector2D otherVector) {
-        return new Vector2D(max(x, otherVector.x), max(y, otherVector.y));
+        return new Vector2D(max(this.x, otherVector.x), max(this.y, otherVector.y));
     }
 
     public Vector2D lowerLeft(Vector2D otherVector) {
-        return new Vector2D(min(x, otherVector.x), min(y, otherVector.y));
+        return new Vector2D(min(this.x, otherVector.x), min(this.y, otherVector.y));
     }
 
     public Vector2D opposite() {
-        return new Vector2D(-x, -y);
+        return new Vector2D(-this.x, -this.y);
     }
 
     @Override
@@ -51,11 +51,11 @@ public class Vector2D {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vector2D vector2D = (Vector2D) o;
-        return x == vector2D.x && y == vector2D.y;
+        return this.x == vector2D.x && this.y == vector2D.y;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(this.x, this.y);
     }
 }
