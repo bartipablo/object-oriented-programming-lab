@@ -2,18 +2,16 @@ package agh.ics.oop;
 
 public class World {
     public static void main(String[] args){
-        Animal x = new Animal();
-        System.out.println(x.toString());
-
-        Direction[] actions = changeStringToEnumArray(args);
+        OptionParser parser = new OptionParser();
+        MoveDirection[] actions = parser.parse(args);
 
         System.out.println("Start");
         run(actions);
         System.out.println("Stop");
     }
 
-    public static void run(Direction[] actions){
-        for (Direction action : actions){
+    public static void run(MoveDirection[] actions){
+        for (MoveDirection action : actions){
             switch (action) {
                 case FORWARD  -> System.out.println("Zwierzak idzie do przodu");
                 case BACKWARD -> System.out.println("Zwierzak idzie do tyłu");
@@ -23,21 +21,4 @@ public class World {
             }
         }
     }
-
-    public static Direction[] changeStringToEnumArray(String[] args){
-        Direction[] EnumArray = new Direction[args.length];
-        for (int i = 0; i < args.length; i++){
-            switch(args[i]){
-                case "f" -> EnumArray[i] = Direction.FORWARD;
-                case "b" -> EnumArray[i] = Direction.BACKWARD;
-                case "l" -> EnumArray[i] = Direction.LEFT;
-                case "r" -> EnumArray[i] = Direction.RIGHT;
-                default  -> EnumArray[i] = Direction.NONE;
-            }
-        }
-        return EnumArray;
-    }
-
-
-
 }

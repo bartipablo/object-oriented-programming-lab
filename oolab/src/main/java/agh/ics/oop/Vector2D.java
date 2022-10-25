@@ -15,7 +15,7 @@ public class Vector2D {
     }
 
     public String toString() {
-        return "(" + this.x + ", " + this.y + ")";
+        return "(%d, %d)".formatted(this.x, this.y);
     }
 
     public boolean precedes(Vector2D otherVector) {
@@ -45,6 +45,8 @@ public class Vector2D {
     public Vector2D opposite() {
         return new Vector2D(-this.x, -this.y);
     }
+
+
 
     @Override
     public boolean equals(Object o) {
