@@ -4,9 +4,15 @@ public class World {
     public static void main(String[] args){
         OptionParser parser = new OptionParser();
         MoveDirection[] actions = parser.parse(args);
+        Animal animal = new Animal();
 
         System.out.println("Start");
+
         run(actions);
+        for (MoveDirection action: actions) {
+            animal.move(action);
+        }
+
         System.out.println("Stop");
     }
 
