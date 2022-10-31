@@ -18,4 +18,8 @@ public interface IWorldMap {
     void moveOnMap(Vector2D position, MoveDirection direction);
 
     Vector2D[] getKeys();
+
+    int getWidth();
+
+    int getHeight();
 }

@@ -15,7 +15,6 @@ public class World {
         System.out.println("Początkowe położenie:");
         System.out.println(mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(9, 4)));
 
-
         System.out.println("Start");
         engine.run();
         System.out.println("Stop");

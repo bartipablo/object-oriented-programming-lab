@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RectangularMap implements IWorldMap {
-    private final int width;
-    private final int height;
+    public final int width;
+    public final int height;
 
     private final Map<Vector2D, Animal> animalsAtPosition = new HashMap<>();
 
@@ -49,5 +49,13 @@ public class RectangularMap implements IWorldMap {
 
     public Vector2D[] getKeys() {
         return animalsAtPosition.keySet().toArray(new Vector2D[0]);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

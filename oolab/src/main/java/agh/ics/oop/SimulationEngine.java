@@ -16,12 +16,13 @@ public class SimulationEngine implements IEngine {
     }
 
     public void run() {
-        int arrayLength = moveDirectionsArray.length;
+        MapVisualizer mapVisualizer = new MapVisualizer(mapInstance);
         int i = 0;
         Vector2D[] arrayKeys = mapInstance.getKeys();
         for (MoveDirection moveDirection : moveDirectionsArray) {
-            mapInstance.moveOnMap(arrayKeys[i % arrayLength], moveDirection);
+            mapInstance.moveOnMap(arrayKeys[i % arrayKeys.length], moveDirection);
             i++;
+            System.out.println(mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(mapInstance.getWidth() - 1, mapInstance.getHeight() - 1)));
         }
     }
 }
