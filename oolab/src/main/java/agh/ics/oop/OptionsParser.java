@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import java.util.Arrays;
 
-public class OptionParser {
+public class OptionsParser {
 
     public MoveDirection[] parse(String[] inputArray) {
         MoveDirection[] moveArray = new MoveDirection[inputArray.length];

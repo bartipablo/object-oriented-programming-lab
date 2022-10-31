@@ -9,7 +9,7 @@ public class OptionParserTest {
 
     @Test
     public void parseTest() {
-        OptionParser parser = new OptionParser();
+        OptionsParser parser = new OptionsParser();
 
         String[] input1 = {"f", "hello", "forward", "b", "x", "backward"};
         MoveDirection[] output1 = {MoveDirection.FORWARD, MoveDirection.FORWARD,
