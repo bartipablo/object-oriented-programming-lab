@@ -19,22 +19,20 @@ public class World {
         //engine.run();
 
         //simulation:
-        while(true) {
-            Random rand = new Random();
-            MoveDirection[] randArguments = new MoveDirection[1000];
-            for (int i = 0; i < 1000; i++) {
-                int randNumber = rand.nextInt(4);
-                switch (randNumber) {
-                    case 0 -> randArguments[i] = MoveDirection.FORWARD;
-                    case 1 -> randArguments[i] = MoveDirection.RIGHT;
-                    case 2 -> randArguments[i] = MoveDirection.BACKWARD;
-                    case 3 -> randArguments[i] = MoveDirection.LEFT;
-                }
+        Random rand = new Random();
+        MoveDirection[] randArguments = new MoveDirection[1000];
+        for (int i = 0; i < 1000; i++) {
+            int randNumber = rand.nextInt(4);
+            switch (randNumber) {
+                case 0 -> randArguments[i] = MoveDirection.FORWARD;
+                case 1 -> randArguments[i] = MoveDirection.RIGHT;
+                case 2 -> randArguments[i] = MoveDirection.BACKWARD;
+                case 3 -> randArguments[i] = MoveDirection.LEFT;
             }
-            engine = new SimulationEngine(randArguments, map, positions);
-            engine.run();
         }
-    }
+        engine = new SimulationEngine(randArguments, map, positions);
+        engine.run();
+        }
 
     public static void showActions(MoveDirection[] actions){
         for (MoveDirection action : actions){
