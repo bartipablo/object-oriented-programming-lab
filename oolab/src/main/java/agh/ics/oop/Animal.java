@@ -5,7 +5,7 @@ import javax.print.DocFlavor;
 
 
 public class Animal {
-    private IWorldMap map;
+    private final IWorldMap map;
     private MapDirection direction = MapDirection.NORTH;
     private Vector2D position;
 
@@ -22,15 +22,15 @@ public class Animal {
 
     public String toString() {
         return switch(direction) {
-            case NORTH -> "N";
-            case EAST  -> "E";
-            case SOUTH -> "S";
-            case WEST  -> "W";
+            case NORTH -> "⭡";
+            case EAST  -> "⭢";
+            case SOUTH -> "⭣";
+            case WEST  -> "⭠";
         };
     }
 
-    public boolean isAt(Vector2D vectorPosition) {
-        return (this.position.x == vectorPosition.x) && (this.position.y == vectorPosition.y);
+    public boolean isAt(Vector2D position) {
+        return (this.position.x == position.x) && (this.position.y == position.y);
     }
 
     public void move(MoveDirection direction) {
@@ -48,16 +48,16 @@ public class Animal {
             case BACKWARD -> newPosition = newPosition.substract(this.direction.toUnitVector());
         }
         if (map.canMoveTo(newPosition)) {
-            this.position = newPosition;
+            position = newPosition;
         }
     }
 
     public MapDirection getDirection() {
-        return this.direction;
+        return direction;
     }
 
     public Vector2D getPosition() {
-        return this.position;
+        return position;
     }
 
 }

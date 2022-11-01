@@ -5,15 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 public class RectangularMap implements IWorldMap {
-    public final int width;
-    public final int height;
+    private final int width;
+    private final int height;
 
-    private final Map<Vector2D, Animal> animalsAtPosition = new HashMap<>();
+    private final Map<Vector2D, Animal> animalsMap = new HashMap<>();
+
+    private final MapVisualizer mapVisualizer;
 
 
     RectangularMap(int width, int height) {
         this.width  = width;
         this.height = height;
+        mapVisualizer = new MapVisualizer(this);
     }
 
     public boolean canMoveTo(Vector2D position) {
@@ -26,36 +29,25 @@ public class RectangularMap implements IWorldMap {
 
     public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition())) {
-            animalsAtPosition.put(animal.getPosition(), animal);
+            animalsMap.put(animal.getPosition(), animal);
             return true;
         }
         return false;
     }
 
     public boolean isOccupied(Vector2D position) {
-        return animalsAtPosition.get(position) != null;
+        return animalsMap.get(position) != null;
     }
 
     public Object objectAt(Vector2D position) {
-        return animalsAtPosition.get(position);
+        return animalsMap.get(position);
     }
 
-    public void moveOnMap(Vector2D position, MoveDirection direction) {
-        Animal animal = animalsAtPosition.get(position);
-        animalsAtPosition.remove(position);
-        animal.move(direction);
-        animalsAtPosition.put(animal.getPosition(), animal);
+    public Map<Vector2D, Animal> getMap() {
+        return animalsMap;
     }
 
-    public Vector2D[] getKeys() {
-        return animalsAtPosition.keySet().toArray(new Vector2D[0]);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+    public String drawMap() {
+        return mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(width - 1, height - 1));
     }
 }
