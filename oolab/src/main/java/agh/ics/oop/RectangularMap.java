@@ -35,17 +35,34 @@ public class RectangularMap implements IWorldMap {
         return false;
     }
 
+    public boolean removeFromMap(Animal animal) {
+        if (animalsMap.get(animal.getPosition()) != null) {
+            animalsMap.remove(animal.getPosition());
+            return true;
+        }
+        return false;
+    }
+
     public boolean isOccupied(Vector2D position) {
         return animalsMap.get(position) != null;
     }
+
+    public Animal moveAnimalOnMap(Animal animal, MoveDirection moveDirection) {
+        removeFromMap(animal);
+        animal = animal.move(moveDirection);
+        place(animal);
+        return animal;
+    }
+
+    public Animal[] getAnimalsOnMapArray() {
+        return animalsMap.values().toArray(new Animal[0]);
+    }
+
 
     public Object objectAt(Vector2D position) {
         return animalsMap.get(position);
     }
 
-    public Map<Vector2D, Animal> getMap() {
-        return animalsMap;
-    }
 
     public String drawMap() {
         return mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(width - 1, height - 1));

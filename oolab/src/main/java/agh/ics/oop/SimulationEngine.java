@@ -17,14 +17,12 @@ public class SimulationEngine implements IEngine {
     }
 
     public void run() {
-        Map<Vector2D, Animal> animalsMap = mapInstance.getMap();
-        Animal[] animalsAtMapArray = animalsMap.values().toArray(new Animal[0]);
+        Animal[] animalsOnMapArray = mapInstance.getAnimalsOnMapArray();
         int i = 0;
         for (MoveDirection direction : moveDirectionsArray) {
-            Animal animal = animalsAtMapArray[i % animalsAtMapArray.length];
-            animalsMap.remove(animal.getPosition());
-            animal.move(direction);
-            animalsMap.put(animal.getPosition(), animal);
+            Animal animal = animalsOnMapArray[i % animalsOnMapArray.length];
+            animal = mapInstance.moveAnimalOnMap(animal, direction);
+            animalsOnMapArray[i % animalsOnMapArray.length] = animal;
             i++;
             System.out.println(mapInstance.drawMap());
         }
