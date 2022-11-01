@@ -29,10 +29,10 @@ public class Animal {
 
     public String toString() {
         return switch(direction) {
-            case NORTH -> "⭡";
-            case EAST  -> "⭢";
-            case SOUTH -> "⭣";
-            case WEST  -> "⭠";
+            case NORTH -> "&#129081"; //⭡
+            case EAST  -> "&#129082"; //⭢
+            case SOUTH -> "&#129083"; //⭣
+            case WEST  -> "&#129080"; //⭠
         };
     }
 

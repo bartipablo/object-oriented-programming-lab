@@ -7,7 +7,7 @@ package agh.ics.oop;
  * @author apohllo
  */
 public class MapVisualizer {
-    private static final String EMPTY_CELL = " ";
+    private static final String EMPTY_CELL = "#";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
     private IWorldMap map;
@@ -46,9 +46,20 @@ public class MapVisualizer {
                     }
                 }
             }
-            builder.append(System.lineSeparator());
+            builder.append("<br>");
         }
-        return builder.toString();
+        return "<html> " +
+                "<head>" +
+                "<style>" +
+                ".text{width: 500px; height:500px; text-align: center; margin-top: auto;}" +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "<div class=\"text\">" +
+                builder.toString() +
+                "</div>" +
+                "<body> " +
+                "</html>";
     }
 
     private String drawFrame(boolean innerSegment) {
@@ -63,9 +74,9 @@ public class MapVisualizer {
         StringBuilder builder = new StringBuilder();
         builder.append(" y\\x ");
         for (int j = lowerLeft.x; j < upperRight.x + 1; j++) {
-            builder.append(String.format("%2d", j));
+            builder.append(String.format("%2d ", j));
         }
-        builder.append(System.lineSeparator());
+        builder.append("<br>");
         return builder.toString();
     }
 

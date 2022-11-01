@@ -12,11 +12,14 @@ public class RectangularMap implements IWorldMap {
 
     private final MapVisualizer mapVisualizer;
 
+    private MyFrame myFrame;
+
 
     RectangularMap(int width, int height) {
         this.width  = width;
         this.height = height;
         mapVisualizer = new MapVisualizer(this);
+        myFrame = new MyFrame(height, width);
     }
 
     public boolean canMoveTo(Vector2D position) {
@@ -64,7 +67,12 @@ public class RectangularMap implements IWorldMap {
     }
 
 
-    public String drawMap() {
-        return mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(width - 1, height - 1));
+    public void updateMap() {
+        myFrame.updateContent(mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(width - 1, height -1)));
     }
+
+    public void activateGUI() {
+        myFrame.setVisible(true);
+    }
+
 }

@@ -18,5 +18,7 @@ public interface IWorldMap {
 
     Object objectAt(Vector2D position);
 
-    String drawMap();
+    void updateMap();
+
+    void activateGUI();
 }
