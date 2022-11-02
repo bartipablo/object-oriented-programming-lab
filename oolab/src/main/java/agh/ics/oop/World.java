@@ -16,9 +16,10 @@ public class World {
         IEngine engine = new SimulationEngine(actions, map, positions);
 
         //input arguments:
-        //engine.run();
+        engine.run();
 
         //simulation:
+        /*
         Random rand = new Random();
         MoveDirection[] randArguments = new MoveDirection[1000];
         for (int i = 0; i < 1000; i++) {
@@ -32,6 +33,7 @@ public class World {
         }
         engine = new SimulationEngine(randArguments, map, positions);
         engine.run();
+        */
         }
 
     public static void showActions(MoveDirection[] actions){

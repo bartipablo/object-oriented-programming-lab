@@ -45,7 +45,7 @@ public class RectangularMapTest {
 
     @Test
     public void removeFromMapTest() {
-        IWorldMap map = new RectangularMap(5, 5);
+        RectangularMap map = new RectangularMap(5, 5);
         Animal animal1 = new Animal(map, new Vector2D(1, 1));
         Animal animal2 = new Animal(map, new Vector2D(2, 2));
         map.place(animal1);
@@ -56,35 +56,6 @@ public class RectangularMapTest {
                 () -> assertTrue(map.canMoveTo(animal1.getPosition())),
                 () -> assertFalse(map.canMoveTo(animal2.getPosition()))
         );
-    }
-
-    @Test
-    public void moveAnimalOnMap() {
-        IWorldMap map = new RectangularMap(5, 5);
-        map.place(new Animal(map, new Vector2D(1, 1)));
-        map.place(new Animal(map, new Vector2D(2, 2)));
-        map.place(new Animal(map, new Vector2D(1, 3)));
-        map.moveAnimalOnMap(new Animal(map, new Vector2D(2, 2)), MoveDirection.FORWARD);
-        map.moveAnimalOnMap(new Animal(map, new Vector2D(2, 3)), MoveDirection.LEFT);
-        map.moveAnimalOnMap(new Animal(map, new Vector2D(2,3), MapDirection.WEST), MoveDirection.FORWARD);
-        assertAll(
-                () -> assertTrue(map.isOccupied(new Vector2D(1, 3))),
-                () -> assertTrue(map.isOccupied(new Vector2D(2, 3))),
-                () -> assertTrue(map.isOccupied(new Vector2D(1, 1))),
-                () -> assertFalse(map.isOccupied(new Vector2D(2, 2)))
-        );
-    }
-
-    @Test
-    public void getAnimalsOnMapTest() {
-        IWorldMap map = new RectangularMap(5, 5);
-        Animal animal1 = new Animal(map);
-        Animal animal2 = new Animal(map, new Vector2D(3, 3));
-        map.place(animal1);
-        map.place(animal2);
-        Animal[] expectedArray = map.getAnimalsOnMapArray();
-        Animal[] actualArray = {animal1, animal2};
-        assertArrayEquals(expectedArray, actualArray);
     }
 
     @Test

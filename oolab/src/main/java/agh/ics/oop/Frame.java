@@ -3,10 +3,10 @@ package agh.ics.oop;
 import javax.swing.*;
 import java.awt.*;
 
-public class MyFrame extends JFrame {
+public class Frame extends JFrame {
 
     JLabel label;
-    MyFrame(int mapHeight, int mapWidth) {
+    Frame() {
         this.setTitle("World");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(700, 750);
@@ -15,7 +15,7 @@ public class MyFrame extends JFrame {
         this.add(label);
     }
 
-    public void updateContent(String text) {
+    public void updateFrame(String text) {
         this.remove(label);
         label = new JLabel();
         label.setText(text);
