@@ -19,7 +19,6 @@ public class World {
         engine.run();
 
         //simulation:
-
         Random rand = new Random();
         MoveDirection[] randArguments = new MoveDirection[1000];
         for (int i = 0; i < 1000; i++) {

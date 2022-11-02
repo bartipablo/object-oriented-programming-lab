@@ -9,30 +9,32 @@ public class SimulationEngine implements IEngine {
     private final IWorldMap mapInstance;
     private final Frame frame = new Frame();
 
-    SimulationEngine(MoveDirection[] moveDirectionsArray,
-                     IWorldMap mapInstance, Vector2D[] animalsPositionArray) {
+    SimulationEngine(MoveDirection[] moveDirectionsArray, IWorldMap mapInstance, Vector2D[] animalsPositionArray) {
         this.moveDirectionsArray  = moveDirectionsArray;
         this.mapInstance = mapInstance;
         for (Vector2D animalPosition : animalsPositionArray) {
             mapInstance.place(new Animal(mapInstance, animalPosition));
         }
+        frame.setVisible(true);
+        frame.updateFrame(mapInstance.toString());
     }
 
     public void run() throws InterruptedException {
-        frame.setVisible(true);
-        frame.updateFrame(mapInstance.toString());
         Animal[] animalsOnMapArray = mapInstance.getAnimalsOnMapArray();
         int i = 0;
         for (MoveDirection direction : moveDirectionsArray) {
             TimeUnit.MILLISECONDS.sleep(300);
-            Animal animal = animalsOnMapArray[i % animalsOnMapArray.length];
-            animal = mapInstance.moveAnimalOnMap(animal, direction);
-            animalsOnMapArray[i % animalsOnMapArray.length] = animal;
+            simulateMove(direction, animalsOnMapArray, i);
             i++;
             frame.updateFrame(mapInstance.toString());
         }
         TimeUnit.MILLISECONDS.sleep(300);
-        frame.setVisible(false);
+    }
+
+    private void simulateMove(MoveDirection direction, Animal[] animalsOnMapArray, int arrayIndex) {
+        Animal animal = animalsOnMapArray[arrayIndex % animalsOnMapArray.length];
+        animal = mapInstance.moveAnimalOnMap(animal, direction);
+        animalsOnMapArray[arrayIndex % animalsOnMapArray.length] = animal;
     }
 
 
