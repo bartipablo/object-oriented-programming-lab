@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RectangularMap implements IWorldMap {
@@ -9,10 +10,13 @@ public class RectangularMap implements IWorldMap {
 
     private final Map<Vector2D, Animal> animalsMap = new HashMap<>();
 
+    private final MapVisualizer mapVisualizer;
+
 
     RectangularMap(int width, int height) {
         this.width  = width;
         this.height = height;
+        mapVisualizer = new MapVisualizer(this);
     }
 
     public boolean canMoveTo(Vector2D position) {
@@ -43,15 +47,24 @@ public class RectangularMap implements IWorldMap {
         return animalsMap.get(position) != null;
     }
 
+    public Animal moveAnimalOnMap(Animal animal, MoveDirection moveDirection) {
+        removeFromMap(animal);
+        animal = animal.move(moveDirection);
+        place(animal);
+        return animal;
+    }
+
+    public Animal[] getAnimalsOnMapArray() {
+        return animalsMap.values().toArray(new Animal[0]);
+    }
+
+
     public Object objectAt(Vector2D position) {
         return animalsMap.get(position);
     }
 
-    public int getWidth() {
-        return width;
+    public String toString() {
+        return mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(width - 1, height -1));
     }
 
-    public int getHeight() {
-        return height;
-    }
 }
