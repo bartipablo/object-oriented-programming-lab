@@ -16,7 +16,7 @@ public class World {
         IEngine engine = new SimulationEngine(actions, map, positions);
 
         //input arguments:
-        //engine.run();
+        engine.run();
 
         //simulation:
 
@@ -31,6 +31,7 @@ public class World {
                 case 3 -> randArguments[i] = MoveDirection.LEFT;
             }
         }
+        map = new RectangularMap(10, 9);
         engine = new SimulationEngine(randArguments, map, positions);
         engine.run();
         }

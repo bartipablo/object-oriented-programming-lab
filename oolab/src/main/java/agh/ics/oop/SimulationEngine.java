@@ -31,6 +31,8 @@ public class SimulationEngine implements IEngine {
             i++;
             frame.updateFrame(mapInstance.toString());
         }
+        TimeUnit.MILLISECONDS.sleep(300);
+        frame.setVisible(false);
     }
 
 
