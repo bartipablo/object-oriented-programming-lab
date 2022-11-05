@@ -27,7 +27,7 @@ public class SimulationEngine implements IEngine {
         int i = 0;
         int arrayLength = animalsOnMap.size();
         for (MoveDirection moveDirection : moveDirectionsArray) {
-            boolean canMove = canMoveAnimal(map, animalsOnMap, i % arrayLength, moveDirection);
+            boolean canMove = moveAnimal(map, animalsOnMap, i % arrayLength, moveDirection);
             if (canMove) {
                 map = mapInstance.clone();
                 updateAnimalList(map, animalsOnMap);
@@ -46,7 +46,7 @@ public class SimulationEngine implements IEngine {
         }
     }
 
-    private boolean canMoveAnimal(IWorldMap map, List<Animal> animalsOnMap, int animalIndex, MoveDirection moveDirection) {
+    private boolean moveAnimal(IWorldMap map, List<Animal> animalsOnMap, int animalIndex, MoveDirection moveDirection) {
         Animal animal = animalsOnMap.get(animalIndex);
         if (moveDirection == MoveDirection.LEFT || moveDirection == MoveDirection.RIGHT || map.canMoveTo(animal.move(moveDirection).getPosition())) {
             animalsOnMap.set(animalIndex, animal.move(moveDirection));

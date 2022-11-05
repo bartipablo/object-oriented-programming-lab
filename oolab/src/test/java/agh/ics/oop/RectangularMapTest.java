@@ -55,7 +55,13 @@ public class RectangularMapTest {
                 () -> assertEquals(testObject1, testObject2),
                 () -> assertNotEquals(testObject2, testObject3)
         );
-
+    }
+    @Test
+    public void copyTest() {
+        IWorldMap map1 = new RectangularMap(5, 5);
+        Animal animal = new Animal(map1, new Vector2D(5, 5));
+        IWorldMap map2 = map1.clone();
+        assertEquals(map1.toString(), map2.toString());
     }
 
 }
