@@ -33,7 +33,8 @@ public class World {
         map = new RectangularMap(10, 9);
         engine = new SimulationEngine(randArguments, map, positions);
         engine.run();
-        }
+
+    }
 
     public static void showActions(MoveDirection[] actions){
         for (MoveDirection action : actions){

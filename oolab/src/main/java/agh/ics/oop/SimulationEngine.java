@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -7,35 +9,54 @@ public class SimulationEngine implements IEngine {
 
     private final MoveDirection[] moveDirectionsArray;
     private final IWorldMap mapInstance;
+    private IWorldMap map;
+    private List<Animal> animalsOnMap = new ArrayList<>();
     private final Frame frame = new Frame();
 
-    SimulationEngine(MoveDirection[] moveDirectionsArray, IWorldMap mapInstance, Vector2D[] animalsPositionArray) {
+    SimulationEngine(MoveDirection[] moveDirectionsArray, IWorldMap mapInstance, Vector2D[] initialAnimalPositionOnMap) {
         this.moveDirectionsArray  = moveDirectionsArray;
         this.mapInstance = mapInstance;
-        for (Vector2D animalPosition : animalsPositionArray) {
-            mapInstance.place(new Animal(mapInstance, animalPosition));
+        this.map = mapInstance.clone();
+        for (Vector2D vector2D : initialAnimalPositionOnMap) {
+            animalsOnMap.add(new Animal(mapInstance, vector2D));
         }
-        frame.setVisible(true);
-        frame.updateFrame(mapInstance.toString());
     }
 
     public void run() throws InterruptedException {
-        Animal[] animalsOnMapArray = mapInstance.getAnimalsOnMapArray();
+        frame.setVisible(true);
         int i = 0;
-        for (MoveDirection direction : moveDirectionsArray) {
-            TimeUnit.MILLISECONDS.sleep(300);
-            simulateMove(direction, animalsOnMapArray, i);
+        int arrayLength = animalsOnMap.size();
+        for (MoveDirection moveDirection : moveDirectionsArray) {
+            boolean canMove = canMoveAnimal(map, animalsOnMap, i % arrayLength, moveDirection);
+            if (canMove) {
+                map = mapInstance.clone();
+                updateAnimalList(map, animalsOnMap);
+                setAnimalsOnMap(map, animalsOnMap);
+                frame.updateFrame(map.toString());
+                TimeUnit.MILLISECONDS.sleep(300);
+            }
             i++;
-            frame.updateFrame(mapInstance.toString());
         }
-        TimeUnit.MILLISECONDS.sleep(300);
+        frame.setVisible(false);
     }
 
-    private void simulateMove(MoveDirection direction, Animal[] animalsOnMapArray, int arrayIndex) {
-        Animal animal = animalsOnMapArray[arrayIndex % animalsOnMapArray.length];
-        animal = mapInstance.moveAnimalOnMap(animal, direction);
-        animalsOnMapArray[arrayIndex % animalsOnMapArray.length] = animal;
+    private void setAnimalsOnMap(IWorldMap map, List<Animal> animalsOnMap) {
+        for (Animal animal : animalsOnMap) {
+            map.place(animal);
+        }
     }
 
+    private boolean canMoveAnimal(IWorldMap map, List<Animal> animalsOnMap, int animalIndex, MoveDirection moveDirection) {
+        Animal animal = animalsOnMap.get(animalIndex);
+        if (moveDirection == MoveDirection.LEFT || moveDirection == MoveDirection.RIGHT || map.canMoveTo(animal.move(moveDirection).getPosition())) {
+            animalsOnMap.set(animalIndex, animal.move(moveDirection));
+            return true;
+        }
+        return false;
+    }
+
+    private void updateAnimalList(IWorldMap map, List<Animal> animalsOnMap) {
+        animalsOnMap.replaceAll(animal1 -> animal1.changeMap(map));
+    }
 
 }

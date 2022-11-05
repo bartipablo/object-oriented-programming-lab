@@ -59,6 +59,10 @@ public class Animal {
         return new Animal(map, newPosition, direction);
     }
 
+    public Animal changeMap(IWorldMap map) {
+        return new Animal(map, position, direction);
+    }
+
     public MapDirection getDirection() {
         return direction;
     }
