@@ -18,7 +18,7 @@ public class SimulationEngine implements IEngine {
         this.mapInstance = mapInstance;
         this.map = mapInstance.clone();
         for (Vector2D vector2D : initialAnimalPositionOnMap) {
-            animalsOnMap.add(new Animal(mapInstance, vector2D));
+            animalsOnMap.add(new Animal(map, vector2D));
         }
     }
 
@@ -30,7 +30,6 @@ public class SimulationEngine implements IEngine {
             boolean canMove = moveAnimal(map, animalsOnMap, i % arrayLength, moveDirection);
             if (canMove) {
                 map = mapInstance.clone();
-                updateAnimalList(map, animalsOnMap);
                 setAnimalsOnMap(map, animalsOnMap);
                 frame.updateFrame(map.toString());
                 TimeUnit.MILLISECONDS.sleep(300);
@@ -55,8 +54,5 @@ public class SimulationEngine implements IEngine {
         return false;
     }
 
-    private void updateAnimalList(IWorldMap map, List<Animal> animalsOnMap) {
-        animalsOnMap.replaceAll(animal1 -> animal1.changeMap(map));
-    }
 
 }
