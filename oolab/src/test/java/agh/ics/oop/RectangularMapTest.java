@@ -46,20 +46,23 @@ public class RectangularMapTest {
     @Test
     public void objectAtTest() {
         IWorldMap map = new RectangularMap(5, 5);
-        Animal animal = new Animal(map, new Vector2D(1, 1));
-        map.place(animal);
-        Object testObject1 = animal;
-        Object testObject2 = map.objectAt(new Vector2D(1, 1));
-        Object testObject3 = map.objectAt(new Vector2D(3, 3));
+        Animal animal1 = new Animal(map, new Vector2D(1, 1));
+        Animal animal2 = new Animal(map, new Vector2D(3, 4));
+        map.place(animal1);
+        map.place(animal2);
+        Animal animal3 = (Animal) map.objectAt(new Vector2D(1, 1));
+        Animal animal4 = (Animal) map.objectAt(new Vector2D(3, 4));
         assertAll(
-                () -> assertEquals(testObject1, testObject2),
-                () -> assertNotEquals(testObject2, testObject3)
+                () -> assertEquals(animal1, animal3),
+                () -> assertEquals(animal2, animal4),
+                () -> assertNotEquals(animal1, animal4),
+                () -> assertNotEquals(animal2, animal3)
         );
     }
     @Test
     public void copyTest() {
         IWorldMap map1 = new RectangularMap(5, 5);
-        Animal animal = new Animal(map1, new Vector2D(5, 5));
+        map1.place(new Animal(map1, new Vector2D(5, 5)));
         IWorldMap map2 = map1.clone();
         assertEquals(map1.toString(), map2.toString());
     }

@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame {
-
     JLabel label;
+
     Frame() {
         this.setTitle("World");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

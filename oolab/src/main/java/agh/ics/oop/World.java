@@ -11,7 +11,7 @@ public class World {
 
         MoveDirection[] actions = parser.parse(args);
         Vector2D[] positions = { new Vector2D(2,2), new Vector2D(3,4) };
-        IWorldMap map = new RectangularMap(10, 9);
+        IWorldMap map = new RectangularMap(10, 5);
 
         IEngine engine = new SimulationEngine(actions, map, positions);
 

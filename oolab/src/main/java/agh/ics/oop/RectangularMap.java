@@ -7,9 +7,7 @@ import java.util.Map;
 public class RectangularMap implements IWorldMap {
     private final int width;
     private final int height;
-
     private final Map<Vector2D, Animal> animalsMap = new HashMap<>();
-
     private final MapVisualizer  mapVisualizer = new MapVisualizer(this);
 
     RectangularMap(int width, int height) {
@@ -32,11 +30,9 @@ public class RectangularMap implements IWorldMap {
         return false;
     }
 
-
     public boolean isOccupied(Vector2D position) {
         return animalsMap.get(position) != null;
     }
-
 
     public Object objectAt(Vector2D position) {
         return animalsMap.get(position);

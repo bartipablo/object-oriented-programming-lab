@@ -3,7 +3,6 @@ package agh.ics.oop;
 import java.util.Map;
 
 public interface IWorldMap {
-
     boolean canMoveTo(Vector2D position);
 
     //Place the animal on the map.
@@ -14,4 +13,5 @@ public interface IWorldMap {
     Object objectAt(Vector2D position);
 
     IWorldMap clone();
+
 }

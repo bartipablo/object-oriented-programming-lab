@@ -1,8 +1,5 @@
 package agh.ics.oop;
 
-import javax.print.DocFlavor;
-
-
 
 public class Animal {
     private final IWorldMap map;
@@ -47,20 +44,12 @@ public class Animal {
             case RIGHT    -> newDirection = direction.next();
             case LEFT     -> newDirection = direction.previous();
             case FORWARD  -> newPosition = newPosition.add(direction.toUnitVector());
-            case BACKWARD -> newPosition = newPosition.substract(direction.toUnitVector());
+            case BACKWARD -> newPosition = newPosition.subtract(direction.toUnitVector());
         }
         if (map.canMoveTo(newPosition)) {
             return new Animal(map, newPosition, newDirection);
         }
         return new Animal(map, position, newDirection);
-    }
-
-    public Animal changePosition(Vector2D newPosition) {
-        return new Animal(map, newPosition, direction);
-    }
-
-    public Animal changeMap(IWorldMap map) {
-        return new Animal(map, position, direction);
     }
 
     public MapDirection getDirection() {
