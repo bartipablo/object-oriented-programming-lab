@@ -46,9 +46,11 @@ public class SimulationEngine implements IEngine {
     }
 
     private boolean moveAnimalInArray(IWorldMap map, List<Animal> animalsOnMap, int animalIndex, MoveDirection moveDirection) {
-        Animal animal = animalsOnMap.get(animalIndex);
-        if (moveDirection == MoveDirection.LEFT || moveDirection == MoveDirection.RIGHT || map.canMoveTo(animal.move(moveDirection).getPosition())) {
-            animalsOnMap.set(animalIndex, animal.move(moveDirection));
+        Animal animalInArray = animalsOnMap.get(animalIndex);
+        Animal animal = new Animal(map, animalInArray.getPosition());
+        animal.move(moveDirection);
+        if (moveDirection == MoveDirection.LEFT || moveDirection == MoveDirection.RIGHT || map.canMoveTo(animal.getPosition())) {
+            animalInArray.move(moveDirection);
             return true;
         }
         return false;

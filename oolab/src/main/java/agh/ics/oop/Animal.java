@@ -3,8 +3,8 @@ package agh.ics.oop;
 
 public class Animal {
     private final IWorldMap map;
-    private final MapDirection direction;
-    private final Vector2D position;
+    private MapDirection direction;
+    private Vector2D position;
 
     Animal(IWorldMap map) {
         this.map = map;
@@ -37,7 +37,7 @@ public class Animal {
         return (this.position.x == position.x) && (this.position.y == position.y);
     }
 
-    public Animal move(MoveDirection moveDirection) {
+    public void move(MoveDirection moveDirection) {
         Vector2D newPosition = new Vector2D(position.x, position.y);
         MapDirection newDirection = direction;
         switch (moveDirection) {
@@ -47,9 +47,9 @@ public class Animal {
             case BACKWARD -> newPosition = newPosition.subtract(direction.toUnitVector());
         }
         if (map.canMoveTo(newPosition)) {
-            return new Animal(map, newPosition, newDirection);
+            position = newPosition;
         }
-        return new Animal(map, position, newDirection);
+        direction = newDirection;
     }
 
     public MapDirection getDirection() {
