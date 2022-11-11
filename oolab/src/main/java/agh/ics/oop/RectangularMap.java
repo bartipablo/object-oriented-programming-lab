@@ -35,4 +35,18 @@ public class RectangularMap extends AbstractWorldMap {
         return mapVisualizer.draw(new Vector2D(0, 0), new Vector2D(width - 1, height -1));
     }
 
+    public void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
+        Animal animal = animalsOnMap.get(previousAnimalPosition);
+        animalsOnMap.remove(previousAnimalPosition);
+        animalsOnMap.put(newAnimalPosition, animal);
+    }
+
+    public boolean place(Animal animal){
+        if (canMoveTo(animal.getPosition())) {
+            animalsOnMap.put(animal.getPosition(), animal);
+            return true;
+        }
+        return false;
+    }
+
 }

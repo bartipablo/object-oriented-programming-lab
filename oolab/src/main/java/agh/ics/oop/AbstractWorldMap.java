@@ -9,13 +9,7 @@ public abstract class AbstractWorldMap implements IWorldMap  {
 
     public abstract boolean canMoveTo(Vector2D position);
 
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            animalsOnMap.put(animal.getPosition(), animal);
-            return true;
-        }
-        return false;
-    }
+    public abstract boolean place(Animal animal);
 
     public abstract boolean isOccupied(Vector2D position);
 
@@ -23,9 +17,5 @@ public abstract class AbstractWorldMap implements IWorldMap  {
 
     public abstract String toString();
 
-    public void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
-        Animal animal = animalsOnMap.get(previousAnimalPosition);
-        animalsOnMap.remove(previousAnimalPosition);
-        animalsOnMap.put(newAnimalPosition, animal);
-    }
+    public abstract void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition);
 }

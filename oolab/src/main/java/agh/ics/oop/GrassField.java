@@ -23,6 +23,17 @@ public class GrassField extends AbstractWorldMap {
         return true;
     }
 
+    public boolean place(Animal animal){
+        if (canMoveTo(animal.getPosition())) {
+            animalsOnMap.put(animal.getPosition(), animal);
+            if (grassesOnMap.get(animal.getPosition()) != null) {
+                grassesOnMap.remove(animal.getPosition());
+            }
+            return true;
+        }
+        return false;
+    }
+
     public boolean isOccupied(Vector2D position) {
         if (animalsOnMap.get(position) != null || grassesOnMap.get(position) != null) {
             return true;
@@ -87,5 +98,14 @@ public class GrassField extends AbstractWorldMap {
             if (animalPosition.y > mapSizeLimit[1]) mapSizeLimit[1] = animalPosition.y;
         }
         return new Vector2D(mapSizeLimit[0], mapSizeLimit[1]);
+    }
+
+    public void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
+        Animal animal = animalsOnMap.get(previousAnimalPosition);
+        animalsOnMap.remove(previousAnimalPosition);
+        animalsOnMap.put(newAnimalPosition, animal);
+        if (animalsOnMap.get(newAnimalPosition) != null) {
+            grassesOnMap.remove(newAnimalPosition);
+        }
     }
 }
