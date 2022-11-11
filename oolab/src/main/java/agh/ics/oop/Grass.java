@@ -3,7 +3,6 @@ package agh.ics.oop;
 public class Grass {
     Vector2D position;
 
-
     Grass(Vector2D initialPosition) {
         position = initialPosition;
     }

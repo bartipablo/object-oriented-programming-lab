@@ -9,19 +9,8 @@ public class AnimalTest {
     @Test
     public void toStringTest() {
 
-        Animal testObject = new Animal(map);
-        assertEquals(testObject.toString(), "&#129081");
-
-        testObject = testObject.move(MoveDirection.RIGHT);
-        assertEquals(testObject.toString(), "&#129082");
-
-        testObject = testObject.move(MoveDirection.RIGHT);
-        assertEquals(testObject.toString(), "&#129083");
-
-        testObject = testObject.move(MoveDirection.RIGHT);
-        assertEquals(testObject.toString(), "&#129080");
     }
-
+    /*
     @Test
     public void isAtTest() {
         Animal testObject = new Animal(map);
@@ -109,5 +98,5 @@ public class AnimalTest {
         assertEquals(testObject.getPosition(), new Vector2D(4, 0));
         testObject = testObject.move(MoveDirection.BACKWARD);
         assertEquals(testObject.getPosition(), new Vector2D(4, 0));
-    }
+    } */
 }

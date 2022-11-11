@@ -12,6 +12,6 @@ public interface IWorldMap {
 
     Object objectAt(Vector2D position);
 
-    IWorldMap clone();
+    void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition);
 
 }

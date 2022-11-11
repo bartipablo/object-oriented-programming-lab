@@ -6,37 +6,32 @@ import java.util.concurrent.TimeUnit;
 
 public class SimulationEngine implements IEngine {
     private final MoveDirection[] moveDirectionsArray;
-    private IWorldMap mapInstance;
-    private IWorldMap map;
+    private final IWorldMap mapInstance;
     private final List<Animal> animalsOnMap = new ArrayList<>();
     private final Frame frame = new Frame();
 
     SimulationEngine(MoveDirection[] moveDirectionsArray, IWorldMap mapInstance, Vector2D[] initialAnimalPositionOnMap) {
         this.moveDirectionsArray  = moveDirectionsArray;
         this.mapInstance = mapInstance;
-        this.map = mapInstance.clone();
         for (Vector2D vector2D : initialAnimalPositionOnMap) {
-            animalsOnMap.add(new Animal(map, vector2D));
+            animalsOnMap.add(new Animal(mapInstance, vector2D));
         }
-        setAnimalsOnMap(map, animalsOnMap);
+        setAnimalsOnMap(mapInstance, animalsOnMap);
+        frame.updateFrame(mapInstance.toString());
+        frame.setVisible(true);
     }
 
     public void run() throws InterruptedException {
-        frame.updateFrame(map.toString());
-        frame.setVisible(true);
         int i = 0;
         int arrayLength = animalsOnMap.size();
         for (MoveDirection moveDirection : moveDirectionsArray) {
             TimeUnit.MILLISECONDS.sleep(400);
-            boolean canMove = moveAnimalInArray(map, animalsOnMap, i % arrayLength, moveDirection);
-            if (canMove) {
-                map = mapInstance.clone();
-                setAnimalsOnMap(map, animalsOnMap);
-                frame.updateFrame(map.toString());
+            boolean wasMoved = moveAnimal(mapInstance, animalsOnMap, i % arrayLength, moveDirection);
+            if (wasMoved) {
+                frame.updateFrame(mapInstance.toString());
             }
             i++;
         }
-        setAnimalsOnMap(mapInstance, animalsOnMap);
     }
 
     private void setAnimalsOnMap(IWorldMap map, List<Animal> animalsOnMap) {
@@ -45,14 +40,18 @@ public class SimulationEngine implements IEngine {
         }
     }
 
-    private boolean moveAnimalInArray(IWorldMap map, List<Animal> animalsOnMap, int animalIndex, MoveDirection moveDirection) {
-        Animal animalInArray = animalsOnMap.get(animalIndex);
-        Animal animal = new Animal(map, animalInArray.getPosition());
-        animal.move(moveDirection);
-        if (moveDirection == MoveDirection.LEFT || moveDirection == MoveDirection.RIGHT || map.canMoveTo(animal.getPosition())) {
-            animalInArray.move(moveDirection);
+    private boolean moveAnimal(IWorldMap map, List<Animal> animalsOnMap, int animalIndex, MoveDirection moveDirection) {
+        Animal animalToMove = animalsOnMap.get(animalIndex);
+        Vector2D previousPosition = animalToMove.getPosition();
+        animalToMove.move(moveDirection);
+        if (moveDirection == MoveDirection.LEFT || moveDirection == MoveDirection.RIGHT) {
             return true;
         }
+        if (map.canMoveTo(animalToMove.getPosition())) {
+            map.changeAnimalPosition(previousPosition, animalToMove.getPosition());
+            return true;
+        }
+        animalToMove.move(moveDirection.oppositeMoveDirection());
         return false;
     }
 

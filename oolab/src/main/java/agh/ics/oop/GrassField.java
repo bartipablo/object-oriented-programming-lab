@@ -5,38 +5,29 @@ import java.util.*;
 
 import static java.lang.Math.sqrt;
 
-public class GrassField implements IWorldMap {
+public class GrassField extends AbstractWorldMap {
 
-    private final int amountGrassField;
-    private final Map<Vector2D, Animal> animalsOnMap = new HashMap<>();
     private final Map<Vector2D, Grass> grassesOnMap = new HashMap<>();
 
     GrassField(int initialAmountGrassField) {
-        amountGrassField = initialAmountGrassField;
-        initialGrassesField(initialAmountGrassField, grassesOnMap);
+        initialGrassesField(initialAmountGrassField);
+        grassesOnMap.put(new Vector2D(0, 0), new Grass(new Vector2D(0, 0)));
     }
 
-    // implementation methods from interface ----------------------
+    // implementation methods from abstract class ----------------------
     @Override
     public boolean canMoveTo(Vector2D position) {
-        if (position.x < 0 || position.y < 0){
+        if (position.x < 0 || position.y < 0 || animalsOnMap.get(position) != null){
             return false;
         }
-        return !isOccupied(position);
+        return true;
     }
 
-    @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            animalsOnMap.put(animal.getPosition(), animal);
+    public boolean isOccupied(Vector2D position) {
+        if (animalsOnMap.get(position) != null || grassesOnMap.get(position) != null) {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean isOccupied(Vector2D position) {
-        return animalsOnMap.get(position) != null;
     }
 
     @Override
@@ -44,20 +35,12 @@ public class GrassField implements IWorldMap {
         if (animalsOnMap.get(position) != null) {
             return animalsOnMap.get(position);
         }
-        if (grassesOnMap.get(position) != null) {
-            return grassesOnMap.get(position);
-        }
-        return null;
-    }
-
-    @Override
-    public IWorldMap clone() {
-        return null;
+        return grassesOnMap.get(position);
     }
     // ------------------------------------------------------------
 
     // Grass initializer -------------------------------------------
-    private void initialGrassesField(int amountGrassField, Map<Vector2D, Grass> grassesOnMap) {
+    private void initialGrassesField(int amountGrassField) {
         List<Vector2D> grassesPosition = new ArrayList<>();
         generateRandomGrassesField(grassesPosition, amountGrassField);
         setGrassesOnMap(grassesPosition);
@@ -93,7 +76,7 @@ public class GrassField implements IWorldMap {
 
     private Vector2D calculateMapLimit() {
         int[] mapSizeLimit = {0, 0};
-        Vector2D[] grassesPosition = animalsOnMap.keySet().toArray(new Vector2D[0]);
+        Vector2D[] grassesPosition = grassesOnMap.keySet().toArray(new Vector2D[0]);
         Vector2D[] animalsPosition = animalsOnMap.keySet().toArray(new Vector2D[0]);
         for (Vector2D grassPosition : grassesPosition) {
             if (grassPosition.x > mapSizeLimit[0]) mapSizeLimit[0] = grassPosition.x;
