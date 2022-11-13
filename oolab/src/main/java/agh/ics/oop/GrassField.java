@@ -9,9 +9,11 @@ public class GrassField extends AbstractWorldMap {
 
     private final Map<Vector2D, Grass> grassesOnMap = new HashMap<>();
 
+    private final int amountGrassField;
+
     GrassField(int initialAmountGrassField) {
+        amountGrassField = initialAmountGrassField;
         initialGrassesField(initialAmountGrassField);
-        grassesOnMap.put(new Vector2D(0, 0), new Grass(new Vector2D(0, 0)));
     }
 
     // implementation methods from abstract class ----------------------
@@ -25,6 +27,7 @@ public class GrassField extends AbstractWorldMap {
             animalsOnMap.put(animal.getPosition(), animal);
             if (grassesOnMap.get(animal.getPosition()) != null) {
                 grassesOnMap.remove(animal.getPosition());
+                setGrassOnRandomPosition();
             }
             return true;
         }
@@ -47,8 +50,9 @@ public class GrassField extends AbstractWorldMap {
         Animal animal = animalsOnMap.get(previousAnimalPosition);
         animalsOnMap.remove(previousAnimalPosition);
         animalsOnMap.put(newAnimalPosition, animal);
-        if (animalsOnMap.get(newAnimalPosition) != null) {
+        if (grassesOnMap.get(newAnimalPosition) != null) {
             grassesOnMap.remove(newAnimalPosition);
+            setGrassOnRandomPosition();
         }
     }
     // ------------------------------------------------------------
@@ -104,5 +108,19 @@ public class GrassField extends AbstractWorldMap {
         return new Vector2D(mapSizeLimit[0], mapSizeLimit[1]);
     }
     //-------------------------------------------------------------
+
+    private void setGrassOnRandomPosition() {
+        int mapSizeLimit = (int) sqrt(amountGrassField * 10);
+        Random random = new Random();
+        while (true) {
+            int x = random.nextInt(0, mapSizeLimit + 1);
+            int y = random.nextInt(0, mapSizeLimit + 1);
+            if (!isOccupied(new Vector2D(x, y))) {
+                Grass grass = new Grass(new Vector2D(x, y));
+                grassesOnMap.put(new Vector2D(x, y), grass);
+                return;
+            }
+        }
+    }
 
 }

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.SimulatorEngineTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2022-11-13T15:04:09" hostname="DESKTOP-P8JKJ0A" time="4.369">
-  <properties/>
-  <testcase name="runGrassFieldTest()" classname="agh.ics.oop.SimulatorEngineTest" time="4.369">
-    <skipped/>
-  </testcase>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
