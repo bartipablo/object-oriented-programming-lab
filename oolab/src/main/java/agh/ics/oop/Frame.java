@@ -9,7 +9,9 @@ public class Frame extends JFrame {
     Frame() {
         this.setTitle("World");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(700, 750);
+        //this.setSize(1400, 1500);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
         this.getContentPane().setBackground(Color.green);
         label = new JLabel();
         this.add(label);
@@ -19,9 +21,9 @@ public class Frame extends JFrame {
         this.remove(label);
         label = new JLabel();
         label.setText(text);
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(new Font(Font.SERIF, Font.BOLD,40));
+        label.setVerticalAlignment(JLabel.BOTTOM);
+        label.setHorizontalAlignment(JLabel.LEFT);
+        label.setFont(new Font(Font.SERIF, Font.BOLD,30));
         this.add(label);
     }
 

@@ -17,10 +17,7 @@ public class GrassField extends AbstractWorldMap {
     // implementation methods from abstract class ----------------------
     @Override
     public boolean canMoveTo(Vector2D position) {
-        if (position.x < 0 || position.y < 0 || animalsOnMap.get(position) != null){
-            return false;
-        }
-        return true;
+        return position.x >= 0 && position.y >= 0 && animalsOnMap.get(position) == null;
     }
 
     public boolean place(Animal animal){
@@ -35,10 +32,7 @@ public class GrassField extends AbstractWorldMap {
     }
 
     public boolean isOccupied(Vector2D position) {
-        if (animalsOnMap.get(position) != null || grassesOnMap.get(position) != null) {
-            return true;
-        }
-        return false;
+        return animalsOnMap.get(position) != null || grassesOnMap.get(position) != null;
     }
 
     @Override
@@ -47,6 +41,15 @@ public class GrassField extends AbstractWorldMap {
             return animalsOnMap.get(position);
         }
         return grassesOnMap.get(position);
+    }
+
+    public void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
+        Animal animal = animalsOnMap.get(previousAnimalPosition);
+        animalsOnMap.remove(previousAnimalPosition);
+        animalsOnMap.put(newAnimalPosition, animal);
+        if (animalsOnMap.get(newAnimalPosition) != null) {
+            grassesOnMap.remove(newAnimalPosition);
+        }
     }
     // ------------------------------------------------------------
 
@@ -100,12 +103,5 @@ public class GrassField extends AbstractWorldMap {
         return new Vector2D(mapSizeLimit[0], mapSizeLimit[1]);
     }
 
-    public void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
-        Animal animal = animalsOnMap.get(previousAnimalPosition);
-        animalsOnMap.remove(previousAnimalPosition);
-        animalsOnMap.put(newAnimalPosition, animal);
-        if (animalsOnMap.get(newAnimalPosition) != null) {
-            grassesOnMap.remove(newAnimalPosition);
-        }
-    }
+
 }

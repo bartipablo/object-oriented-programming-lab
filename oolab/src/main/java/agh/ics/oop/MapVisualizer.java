@@ -7,7 +7,7 @@ package agh.ics.oop;
  * @author apohllo
  */
 public class MapVisualizer {
-    private static final String EMPTY_CELL = " ";
+    private static final String EMPTY_CELL = "&nbsp&nbsp";
     private static final String FRAME_SEGMENT = "-";
     private static final String CELL_SEGMENT = "|";
     private IWorldMap map;
@@ -33,12 +33,12 @@ public class MapVisualizer {
         StringBuilder builder = new StringBuilder();
         for (int i = upperRight.y + 1; i >= lowerLeft.y - 1; i--) {
             if (i == upperRight.y + 1) {
-                builder.append(drawHeader(lowerLeft, upperRight));
+                //builder.append(drawHeader(lowerLeft, upperRight));
             }
-            builder.append(String.format("%3d: ", i));
+            //builder.append(String.format("%3d: ", i));
             for (int j = lowerLeft.x; j <= upperRight.x + 1; j++) {
                 if (i < lowerLeft.y || i > upperRight.y) {
-                    builder.append(drawFrame(j <= upperRight.x));
+                    //builder.append(drawFrame(j <= upperRight.x));  FRAME
                 } else {
                     builder.append(CELL_SEGMENT);
                     if (j <= upperRight.x) {
@@ -46,12 +46,12 @@ public class MapVisualizer {
                     }
                 }
             }
-            builder.append("<br>");
+            builder.append("<br/>");
         }
         return "<html> " +
                 "<head>" +
                 "<style>" +
-                ".text{width: 500px; height:500px; text-align: center; margin-top: auto;}" +
+                ".text{width: 1400px}" +
                 "</style>" +
                 "</head>" +
                 "<body>" +
@@ -76,7 +76,7 @@ public class MapVisualizer {
         for (int j = lowerLeft.x; j < upperRight.x + 1; j++) {
             builder.append(String.format("%2d ", j));
         }
-        builder.append("<br>");
+        builder.append("");
         return builder.toString();
     }
 

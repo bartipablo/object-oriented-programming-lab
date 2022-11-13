@@ -26,10 +26,8 @@ public class SimulationEngine implements IEngine {
         int arrayLength = animalsOnMap.size();
         for (MoveDirection moveDirection : moveDirectionsArray) {
             TimeUnit.MILLISECONDS.sleep(400);
-            boolean wasMoved = moveAnimal(mapInstance, animalsOnMap, i % arrayLength, moveDirection);
-            if (wasMoved) {
-                frame.updateFrame(mapInstance.toString());
-            }
+            moveAnimal(i % arrayLength, moveDirection);
+            frame.updateFrame(mapInstance.toString());
             i++;
         }
     }
@@ -40,19 +38,13 @@ public class SimulationEngine implements IEngine {
         }
     }
 
-    private boolean moveAnimal(IWorldMap map, List<Animal> animalsOnMap, int animalIndex, MoveDirection moveDirection) {
-        Animal animalToMove = animalsOnMap.get(animalIndex);
-        Vector2D previousPosition = animalToMove.getPosition();
-        animalToMove.move(moveDirection);
-        if (moveDirection == MoveDirection.LEFT || moveDirection == MoveDirection.RIGHT) {
-            return true;
-        }
-        if (map.canMoveTo(animalToMove.getPosition())) {
-            map.changeAnimalPosition(previousPosition, animalToMove.getPosition());
-            return true;
-        }
-        animalToMove.move(moveDirection.oppositeMoveDirection());
-        return false;
+    private void moveAnimal(int animalIndex, MoveDirection moveDirection) {
+        Animal animal = animalsOnMap.get(animalIndex);
+        Vector2D previousAnimalPosition = animal.getPosition();
+        animal.move(moveDirection);
+        Vector2D newAnimalPosition = animal.getPosition();
+        mapInstance.changeAnimalPosition(previousAnimalPosition, newAnimalPosition);
     }
+
 
 }
