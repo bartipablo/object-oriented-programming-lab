@@ -2,8 +2,6 @@ package agh.ics.oop;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RectangularMapTest {
@@ -64,10 +62,10 @@ public class RectangularMapTest {
     }
 
     @Test
-    public void changeAnimalPositionTest() {
+    public void updateKeyInAnimalMapTest() {
         IWorldMap map = new RectangularMap(5, 5);
         map.place(new Animal(map, new Vector2D(2, 2)));
-        map.changeAnimalPosition(new Vector2D(2, 2), new Vector2D(3, 3));
+        map.updateKeyInAnimalMap(new Vector2D(2, 2), new Vector2D(3, 3));
         assertAll(
                 () -> assertTrue(map.isOccupied(new Vector2D(3, 3))),
                 () -> assertFalse(map.isOccupied(new Vector2D(2, 2))),

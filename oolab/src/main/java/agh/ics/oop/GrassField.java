@@ -43,7 +43,7 @@ public class GrassField extends AbstractWorldMap {
         return grassesOnMap.get(position);
     }
 
-    public void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
+    public void updateKeyInAnimalMap(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
         Animal animal = animalsOnMap.get(previousAnimalPosition);
         animalsOnMap.remove(previousAnimalPosition);
         animalsOnMap.put(newAnimalPosition, animal);
@@ -81,6 +81,7 @@ public class GrassField extends AbstractWorldMap {
     }
     // ---------------------------------------------------------------------
 
+    // toString ------------------------------------------------------------
     public String toString() {
         MapVisualizer mapVisualizer = new MapVisualizer(this);
         Vector2D upperLimit = calculateMapLimit();
@@ -102,6 +103,6 @@ public class GrassField extends AbstractWorldMap {
         }
         return new Vector2D(mapSizeLimit[0], mapSizeLimit[1]);
     }
-
+    //-------------------------------------------------------------
 
 }

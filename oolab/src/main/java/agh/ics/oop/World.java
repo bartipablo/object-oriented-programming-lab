@@ -9,31 +9,20 @@ public class World {
 
         OptionsParser parser = new OptionsParser();
 
+        //simulation with input arguments:
         MoveDirection[] actions = parser.parse(args);
         Vector2D[] positions = { new Vector2D(2,2), new Vector2D(3,4) };
         IWorldMap map = new GrassField(10);
-
         IEngine engine = new SimulationEngine(actions, map, positions);
-
-        //input arguments:
-        //engine.run();
-
-        //simulation:
-        Random rand = new Random();
-        MoveDirection[] randArguments = new MoveDirection[1000];
-        for (int i = 0; i < 1000; i++) {
-            int randNumber = rand.nextInt(6);
-            switch (randNumber) {
-                case 0, 1, 4 -> randArguments[i] = MoveDirection.FORWARD;
-                case 2 -> randArguments[i] = MoveDirection.RIGHT;
-                case 3 -> randArguments[i] = MoveDirection.BACKWARD;
-                case 5 -> randArguments[i] = MoveDirection.LEFT;
-            }
-        }
-        map = new GrassField(20);
-        engine = new SimulationEngine(randArguments, map, positions);
         engine.run();
 
+
+        //simulation with random arguments:
+        MoveDirection[] randomMoveDirection = MoveDirection.generateRandomMoveDirection(100);
+        Vector2D[] animalPosition = {new Vector2D(2,2), new Vector2D(3,4), new Vector2D(0, 0)};
+        IWorldMap simulationMap = new GrassField(10);
+        IEngine simulationEngine = new SimulationEngine(randomMoveDirection, simulationMap, animalPosition);
+        simulationEngine.run();
     }
 
 }

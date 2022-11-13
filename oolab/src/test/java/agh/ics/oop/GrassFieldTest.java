@@ -58,10 +58,10 @@ public class GrassFieldTest {
     }
 
     @Test
-    public void changeAnimalPositionTest() {
+    public void updateKeyInAnimalMapTest() {
         IWorldMap map = new GrassField(5);
         map.place(new Animal(map, new Vector2D(2, 2)));
-        map.changeAnimalPosition(new Vector2D(2, 2), new Vector2D(3, 3));
+        map.updateKeyInAnimalMap(new Vector2D(2, 2), new Vector2D(3, 3));
         assertAll(
                 () -> assertTrue(map.isOccupied(new Vector2D(3, 3))),
                 () -> assertFalse(map.isOccupied(new Vector2D(2, 2))),

@@ -17,5 +17,5 @@ public abstract class AbstractWorldMap implements IWorldMap  {
 
     public abstract String toString();
 
-    public abstract void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition);
+    public abstract void updateKeyInAnimalMap(Vector2D previousAnimalPosition, Vector2D newAnimalPosition);
 }

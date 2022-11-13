@@ -1,7 +1,5 @@
 package agh.ics.oop;
 
-import java.util.Map;
-
 public interface IWorldMap {
     boolean canMoveTo(Vector2D position);
 
@@ -12,6 +10,6 @@ public interface IWorldMap {
 
     Object objectAt(Vector2D position);
 
-    void changeAnimalPosition(Vector2D previousAnimalPosition, Vector2D newAnimalPosition);
+    void updateKeyInAnimalMap(Vector2D previousAnimalPosition, Vector2D newAnimalPosition);
 
 }

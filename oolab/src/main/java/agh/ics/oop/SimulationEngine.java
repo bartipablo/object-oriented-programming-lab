@@ -18,18 +18,19 @@ public class SimulationEngine implements IEngine {
         }
         setAnimalsOnMap(mapInstance, animalsOnMap);
         frame.updateFrame(mapInstance.toString());
-        frame.setVisible(true);
     }
 
     public void run() throws InterruptedException {
+        frame.setVisible(true);
         int i = 0;
-        int arrayLength = animalsOnMap.size();
         for (MoveDirection moveDirection : moveDirectionsArray) {
             TimeUnit.MILLISECONDS.sleep(400);
-            moveAnimal(i % arrayLength, moveDirection);
+            Animal animalToMove = animalsOnMap.get(i % animalsOnMap.size());
+            animalToMove.move(moveDirection);
             frame.updateFrame(mapInstance.toString());
             i++;
         }
+        TimeUnit.MILLISECONDS.sleep(400);
     }
 
     private void setAnimalsOnMap(IWorldMap map, List<Animal> animalsOnMap) {
@@ -37,14 +38,5 @@ public class SimulationEngine implements IEngine {
             map.place(animal);
         }
     }
-
-    private void moveAnimal(int animalIndex, MoveDirection moveDirection) {
-        Animal animal = animalsOnMap.get(animalIndex);
-        Vector2D previousAnimalPosition = animal.getPosition();
-        animal.move(moveDirection);
-        Vector2D newAnimalPosition = animal.getPosition();
-        mapInstance.changeAnimalPosition(previousAnimalPosition, newAnimalPosition);
-    }
-
 
 }
