@@ -14,8 +14,7 @@ public class MapVisualizer {
         StringBuilder builder = new StringBuilder();
         for (int i = upperRight.y + 1; i >= lowerLeft.y - 1; i--) {
             for (int j = lowerLeft.x; j <= upperRight.x + 1; j++) {
-                if (i < lowerLeft.y || i > upperRight.y) {
-                } else {
+                if (!(i < lowerLeft.y || i > upperRight.y)) {
                     builder.append(CELL_SEGMENT);
                     if (j <= upperRight.x) {
                         builder.append(drawObject(new Vector2D(j, i)));

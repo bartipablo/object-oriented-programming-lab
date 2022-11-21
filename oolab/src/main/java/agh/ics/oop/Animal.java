@@ -52,7 +52,6 @@ public class Animal {
     }
 
     public void move(MoveDirection moveDirection) {
-        Vector2D previousPosition = new Vector2D(position.x, position.y);
         Vector2D newPosition = new Vector2D(position.x, position.y);
         MapDirection newDirection = direction;
         switch (moveDirection) {

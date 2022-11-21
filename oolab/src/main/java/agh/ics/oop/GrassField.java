@@ -1,6 +1,5 @@
 package agh.ics.oop;
 
-import javax.swing.text.Position;
 import java.util.*;
 
 import static java.lang.Math.sqrt;
@@ -23,7 +22,7 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public boolean place(Animal animal){
+    public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition())) {
             animalsOnMap.put(animal.getPosition(), animal);
             if (grassesOnMap.get(animal.getPosition()) != null) {
@@ -53,7 +52,20 @@ public class GrassField extends AbstractWorldMap {
             setGrassOnRandomPosition();
         }
     }
-    // ------------------------------------------------------------
+
+    private void setGrassOnRandomPosition() {
+        int mapSizeLimit = (int) sqrt(amountGrassField * 10);
+        Random random = new Random();
+        while (true) {
+            int x = random.nextInt(0, mapSizeLimit + 1);
+            int y = random.nextInt(0, mapSizeLimit + 1);
+            if (!isOccupied(new Vector2D(x, y))) {
+                Grass grass = new Grass(new Vector2D(x, y));
+                grassesOnMap.put(new Vector2D(x, y), grass);
+                return;
+            }
+        }
+    }
 
     // Grass initializer -------------------------------------------
     private void initialGrassesField(int amountGrassField) {
@@ -107,19 +119,5 @@ public class GrassField extends AbstractWorldMap {
         return new Vector2D(mapSizeLimit[0], mapSizeLimit[1]);
     }
     //-------------------------------------------------------------
-
-    private void setGrassOnRandomPosition() {
-        int mapSizeLimit = (int) sqrt(amountGrassField * 10);
-        Random random = new Random();
-        while (true) {
-            int x = random.nextInt(0, mapSizeLimit + 1);
-            int y = random.nextInt(0, mapSizeLimit + 1);
-            if (!isOccupied(new Vector2D(x, y))) {
-                Grass grass = new Grass(new Vector2D(x, y));
-                grassesOnMap.put(new Vector2D(x, y), grass);
-                return;
-            }
-        }
-    }
 
 }
