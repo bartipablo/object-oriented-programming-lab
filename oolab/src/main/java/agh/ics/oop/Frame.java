@@ -9,7 +9,6 @@ public class Frame extends JFrame {
     Frame() {
         this.setTitle("World");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setSize(1400, 1500);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         this.getContentPane().setBackground(Color.green);

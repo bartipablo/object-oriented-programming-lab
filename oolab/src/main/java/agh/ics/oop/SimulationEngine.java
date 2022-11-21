@@ -13,9 +13,7 @@ public class SimulationEngine implements IEngine {
     SimulationEngine(MoveDirection[] moveDirectionsArray, IWorldMap mapInstance, Vector2D[] initialAnimalPositionOnMap) {
         this.moveDirectionsArray  = moveDirectionsArray;
         this.mapInstance = mapInstance;
-        for (Vector2D vector2D : initialAnimalPositionOnMap) {
-            animalsOnMap.add(new Animal(mapInstance, vector2D));
-        }
+        initialAnimals(initialAnimalPositionOnMap);
         setAnimalsOnMap(mapInstance, animalsOnMap);
         frame.updateFrame(mapInstance.toString());
     }
@@ -36,6 +34,14 @@ public class SimulationEngine implements IEngine {
     private void setAnimalsOnMap(IWorldMap map, List<Animal> animalsOnMap) {
         for (Animal animal : animalsOnMap) {
             map.place(animal);
+        }
+    }
+
+    private void initialAnimals(Vector2D[] initialAnimalPosition) {
+        for (Vector2D vector2D : initialAnimalPosition) {
+            Animal animal = new Animal(mapInstance, vector2D);
+            animal.addObserver((IPositionChangeObserver) mapInstance);
+            animalsOnMap.add(animal);
         }
     }
 

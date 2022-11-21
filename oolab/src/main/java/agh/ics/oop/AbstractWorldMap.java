@@ -1,21 +1,14 @@
 package agh.ics.oop;
 
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.Map;
 
-public abstract class AbstractWorldMap implements IWorldMap  {
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
     protected final Map<Vector2D, Animal> animalsOnMap = new HashMap<>();
 
-    public abstract boolean canMoveTo(Vector2D position);
+    @Override
+    public boolean isOccupied(Vector2D position) {
+        return objectAt(position) != null;
+    }
 
-    public abstract boolean place(Animal animal);
-
-    public abstract boolean isOccupied(Vector2D position);
-
-    public abstract Object objectAt(Vector2D position);
-
-    public abstract String toString();
-
-    public abstract void updateKeyInAnimalMap(Vector2D previousAnimalPosition, Vector2D newAnimalPosition);
 }

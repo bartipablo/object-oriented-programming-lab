@@ -16,12 +16,13 @@ public class GrassField extends AbstractWorldMap {
         initialGrassesField(initialAmountGrassField);
     }
 
-    // implementation methods from abstract class ----------------------
+
     @Override
     public boolean canMoveTo(Vector2D position) {
         return position.x >= 0 && position.y >= 0 && animalsOnMap.get(position) == null;
     }
 
+    @Override
     public boolean place(Animal animal){
         if (canMoveTo(animal.getPosition())) {
             animalsOnMap.put(animal.getPosition(), animal);
@@ -34,10 +35,6 @@ public class GrassField extends AbstractWorldMap {
         return false;
     }
 
-    public boolean isOccupied(Vector2D position) {
-        return animalsOnMap.get(position) != null || grassesOnMap.get(position) != null;
-    }
-
     @Override
     public Object objectAt(Vector2D position) {
         if (animalsOnMap.get(position) != null) {
@@ -46,7 +43,8 @@ public class GrassField extends AbstractWorldMap {
         return grassesOnMap.get(position);
     }
 
-    public void updateKeyInAnimalMap(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
+    @Override
+    public void positionChanged(Vector2D previousAnimalPosition, Vector2D newAnimalPosition) {
         Animal animal = animalsOnMap.get(previousAnimalPosition);
         animalsOnMap.remove(previousAnimalPosition);
         animalsOnMap.put(newAnimalPosition, animal);
@@ -86,6 +84,7 @@ public class GrassField extends AbstractWorldMap {
     // ---------------------------------------------------------------------
 
     // toString ------------------------------------------------------------
+    @Override
     public String toString() {
         MapVisualizer mapVisualizer = new MapVisualizer(this);
         Vector2D upperLimit = calculateMapLimit();

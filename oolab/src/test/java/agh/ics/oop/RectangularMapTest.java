@@ -63,13 +63,14 @@ public class RectangularMapTest {
 
     @Test
     public void updateKeyInAnimalMapTest() {
-        IWorldMap map = new RectangularMap(5, 5);
-        map.place(new Animal(map, new Vector2D(2, 2)));
-        map.updateKeyInAnimalMap(new Vector2D(2, 2), new Vector2D(3, 3));
+        IWorldMap initalizeMap = new RectangularMap(5, 5);
+        initalizeMap.place(new Animal(initalizeMap, new Vector2D(2, 2)));
+        IPositionChangeObserver map = (IPositionChangeObserver) initalizeMap;
+        map.positionChanged(new Vector2D(2, 2), new Vector2D(3, 3));
         assertAll(
-                () -> assertTrue(map.isOccupied(new Vector2D(3, 3))),
-                () -> assertFalse(map.isOccupied(new Vector2D(2, 2))),
-                () -> assertFalse(map.isOccupied(new Vector2D(1, 1)))
+                () -> assertTrue(initalizeMap.isOccupied(new Vector2D(3, 3))),
+                () -> assertFalse(initalizeMap.isOccupied(new Vector2D(2, 2))),
+                () -> assertFalse(initalizeMap.isOccupied(new Vector2D(1, 1)))
         );
     }
 

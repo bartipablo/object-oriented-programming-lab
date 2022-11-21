@@ -58,14 +58,15 @@ public class GrassFieldTest {
     }
 
     @Test
-    public void updateKeyInAnimalMapTest() {
-        IWorldMap map = new GrassField(5);
-        map.place(new Animal(map, new Vector2D(2, 2)));
-        map.updateKeyInAnimalMap(new Vector2D(2, 2), new Vector2D(3, 3));
+    public void positionChangedTest() {
+        IWorldMap initializeMap = new GrassField(5);
+        initializeMap.place(new Animal(initializeMap, new Vector2D(2, 2)));
+        IPositionChangeObserver map = (IPositionChangeObserver) initializeMap;
+        map.positionChanged(new Vector2D(2, 2), new Vector2D(3, 3));
         assertAll(
-                () -> assertTrue(map.isOccupied(new Vector2D(3, 3))),
-                () -> assertFalse(map.isOccupied(new Vector2D(2, 2))),
-                () -> assertFalse(map.isOccupied(new Vector2D(1, 1)))
+                () -> assertTrue(initializeMap.isOccupied(new Vector2D(3, 3))),
+                () -> assertFalse(initializeMap.isOccupied(new Vector2D(2, 2))),
+                () -> assertFalse(initializeMap.isOccupied(new Vector2D(1, 1)))
         );
     }
 }
