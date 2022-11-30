@@ -40,10 +40,10 @@ public class Animal {
 
     public String toString() {
         return switch(direction) {
-            case NORTH -> "&#129081"; //⭡
-            case EAST  -> "&#129082"; //⭢
-            case SOUTH -> "&#129083"; //⭣
-            case WEST  -> "&#129080"; //⭠
+            case NORTH -> "N"; //"&#129081"; //⭡
+            case EAST  -> "E"; //"&#129082"; //⭢
+            case SOUTH -> "S"; //"&#129083"; //⭣
+            case WEST  -> "W"; //"&#129080"; //⭠
         };
     }
 
@@ -75,7 +75,7 @@ public class Animal {
         return position;
     }
 
-    public void positionChanged(Vector2D oldPosition, Vector2D newPosition) {
+    private void positionChanged(Vector2D oldPosition, Vector2D newPosition) {
         for (IPositionChangeObserver observer : observers) {
             observer.positionChanged(oldPosition, newPosition);
         }

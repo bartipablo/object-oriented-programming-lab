@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -7,28 +8,23 @@ import java.util.concurrent.TimeUnit;
 public class SimulationEngine implements IEngine {
     private final MoveDirection[] moveDirectionsArray;
     private final IWorldMap mapInstance;
-    private final List<Animal> animalsOnMap = new ArrayList<>();
+    private final List<Animal> animalsOnMapList = new ArrayList<>();
     private final Frame frame = new Frame();
 
-    SimulationEngine(MoveDirection[] moveDirectionsArray, IWorldMap mapInstance, Vector2D[] initialAnimalPositionOnMap) {
+    public SimulationEngine(MoveDirection[] moveDirectionsArray, IWorldMap mapInstance, Vector2D[] initialAnimalPositionOnMap) {
         this.moveDirectionsArray  = moveDirectionsArray;
         this.mapInstance = mapInstance;
         initialAnimals(initialAnimalPositionOnMap);
-        setAnimalsOnMap(mapInstance, animalsOnMap);
-        frame.updateFrame(mapInstance.toString());
+        setAnimalsOnMap(mapInstance, animalsOnMapList);
     }
 
-    public void run() throws InterruptedException {
-        frame.setVisible(true);
+    public void run() {
         int i = 0;
         for (MoveDirection moveDirection : moveDirectionsArray) {
-            TimeUnit.MILLISECONDS.sleep(400);
-            Animal animalToMove = animalsOnMap.get(i % animalsOnMap.size());
+            Animal animalToMove = animalsOnMapList.get(i % animalsOnMapList.size());
             animalToMove.move(moveDirection);
-            frame.updateFrame(mapInstance.toString());
             i++;
         }
-        TimeUnit.MILLISECONDS.sleep(400);
     }
 
     private void setAnimalsOnMap(IWorldMap map, List<Animal> animalsOnMap) {
@@ -41,7 +37,7 @@ public class SimulationEngine implements IEngine {
         for (Vector2D vector2D : initialAnimalPosition) {
             Animal animal = new Animal(mapInstance, vector2D);
             animal.addObserver((IPositionChangeObserver) mapInstance);
-            animalsOnMap.add(animal);
+            animalsOnMapList.add(animal);
         }
     }
 

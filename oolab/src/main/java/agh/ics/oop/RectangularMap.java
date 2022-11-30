@@ -29,7 +29,7 @@ public class RectangularMap extends AbstractWorldMap {
             animalsOnMap.put(animal.getPosition(), animal);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("the animal cannot be placed in position " + animal.getPosition());
     }
 
     @Override
@@ -47,6 +47,16 @@ public class RectangularMap extends AbstractWorldMap {
         Animal animal = animalsOnMap.get(previousAnimalPosition);
         animalsOnMap.remove(previousAnimalPosition);
         animalsOnMap.put(newAnimalPosition, animal);
+    }
+
+    @Override
+    public Vector2D getUpperMapLimit() {
+        return new Vector2D(width, height);
+    }
+
+    @Override
+    public Vector2D getLowerMapLimit() {
+        return new Vector2D(0, 0);
     }
 
 }

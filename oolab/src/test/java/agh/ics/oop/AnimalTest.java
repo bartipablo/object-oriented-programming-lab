@@ -13,10 +13,10 @@ public class AnimalTest {
         Animal testObject3 = new Animal(map, new Vector2D(2, 2), MapDirection.SOUTH);
         Animal testObject4 = new Animal(map, new Vector2D(3, 3), MapDirection.WEST);
         assertAll(
-                () -> assertEquals(testObject1.toString(), "&#129081"),
-                () -> assertEquals(testObject2.toString(), "&#129082"),
-                () -> assertEquals(testObject3.toString(), "&#129083"),
-                () -> assertEquals(testObject4.toString(), "&#129080")
+                () -> assertEquals(testObject1.toString(), "N"),
+                () -> assertEquals(testObject2.toString(), "E"),
+                () -> assertEquals(testObject3.toString(), "S"),
+                () -> assertEquals(testObject4.toString(), "W")
         );
 
     }

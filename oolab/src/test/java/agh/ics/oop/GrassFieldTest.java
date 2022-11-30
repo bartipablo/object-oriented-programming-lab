@@ -34,10 +34,15 @@ public class GrassFieldTest {
         IWorldMap map = new GrassField(5);
         map.place(new Animal(map, new Vector2D(2, 2)));
         assertAll(
-                () -> assertFalse(map.place(new Animal(map, new Vector2D(2, 2)))),
+                () -> assertThrows(IllegalArgumentException.class, () -> { map.place(new Animal(map, new Vector2D(2, 2))); }),
+                () -> assertThrows(IllegalArgumentException.class, () -> { map.place(new Animal(map, new Vector2D(-1, -1))); }),
                 () -> assertTrue(map.place(new Animal(map, new Vector2D(10, 10)))),
                 () -> assertTrue(map.place(new Animal(map, new Vector2D(1, 1))))
         );
+        //message test
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> { map.place(new Animal(map, new Vector2D(2, 2)));});
+        String expectedMessage = "the animal cannot be placed in position (2, 2)";
+        assert exception.getMessage().contains(expectedMessage);
     }
 
     @Test

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SimulatorEngineTest {
+public class SimulationEngineTest {
 
     // Test simulation engine with rectangular map
     @Test
