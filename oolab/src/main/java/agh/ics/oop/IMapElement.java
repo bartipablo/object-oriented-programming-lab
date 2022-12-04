@@ -2,10 +2,10 @@ package agh.ics.oop;
 
 public interface IMapElement {
 
-    public abstract String toString();
+    String toString();
 
-    public abstract Vector2D getPosition();
+    Vector2D getPosition();
 
-    public abstract String getImagePath();
+    String getImagePath();
 
 }
