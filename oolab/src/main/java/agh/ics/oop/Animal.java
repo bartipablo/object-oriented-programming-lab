@@ -4,7 +4,7 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements IMapElement {
     private final IWorldMap map;
     private final List<IPositionChangeObserver> observers = new ArrayList<>();
     private MapDirection direction;
@@ -79,6 +79,15 @@ public class Animal {
         for (IPositionChangeObserver observer : observers) {
             observer.positionChanged(oldPosition, newPosition);
         }
+    }
+
+    public String getImagePath() {
+        return switch (direction) {
+            case NORTH -> "src/main/resources/dogNorthDirection.png";
+            case EAST  -> "src/main/resources/dogEastDirection.png";
+            case SOUTH -> "src/main/resources/dogSouthDirection.png";
+            case WEST  -> "src/main/resources/dogWestDirection.png";
+        };
     }
 
 }
