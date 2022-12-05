@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -35,23 +34,7 @@ public class App extends Application implements IGuiObserver{
         stage.getIcons().add(new Image(new FileInputStream("src/main/resources/icon.png")));
 
         showMenu();
-
-        button.setOnAction(action -> {
-            if (textField.getText().length() > 0) {
-                OptionsParser optionsParser = new OptionsParser();
-                moveDirections = optionsParser.parse(textField.getText().split(" "));
-            }
-            try {
-                updateScene();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            engine = new SimulationEngine(moveDirections, map, positions);
-            engine.addObserver(this);
-            Thread engineThread = new Thread(engine);
-            engineThread.start();
-        });
-
+        buttonClick();
     }
 
 
@@ -145,6 +128,24 @@ public class App extends Application implements IGuiObserver{
         Scene scene = new Scene(vBox, 400, 400);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void buttonClick() {
+        button.setOnAction(action -> {
+            if (textField.getText().length() > 0) {
+                OptionsParser optionsParser = new OptionsParser();
+                moveDirections = optionsParser.parse(textField.getText().split(" "));
+            }
+            try {
+                updateScene();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            engine = new SimulationEngine(moveDirections, map, positions);
+            engine.addObserver(this);
+            Thread engineThread = new Thread(engine);
+            engineThread.start();
+        });
     }
 }
 
