@@ -3,40 +3,37 @@ package agh.ics.oop.gui;
 import agh.ics.oop.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
-
 
 public class App extends Application implements IGuiObserver{
 
     private AbstractWorldMap map;
     private SimulationEngine engine;
     private Stage stage;
-    private Button button;
+    @FXML
     private TextField textField;
     private MoveDirection[] moveDirections;
     private Vector2D[] positions;
 
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        stage.setTitle("World");
-        stage.getIcons().add(new Image(new FileInputStream("src/main/resources/icon.png")));
-
         showMenu();
-        buttonClick();
     }
-
 
     @Override
     public void init() {
@@ -47,7 +44,6 @@ public class App extends Application implements IGuiObserver{
             moveDirections = new OptionsParser().parse(array);
             map = new GrassField(20);
             positions = new Vector2D[]{new Vector2D(2, 2), new Vector2D(3, 4)};
-
         }
         catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
@@ -116,36 +112,33 @@ public class App extends Application implements IGuiObserver{
         }
     }
 
-    public void showMenu() {
-        VBox vBox = new VBox();
-        Label label = new Label("Type a list of arguments");
-        label.setPrefHeight(50);
-        textField = new TextField();
-        button = new Button("START");
-        Label emptySpace = new Label("");
-        vBox.getChildren().addAll(label, textField, emptySpace, button);
-        vBox.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(vBox, 400, 400);
+    private void showMenu() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/menu-view.fxml"));
+        fxmlLoader.setController(this);
+        Scene scene = new Scene(fxmlLoader.load(), 400, 400);
+        stage.setTitle("World");
+        stage.getIcons().add(new Image(new FileInputStream("src/main/resources/icon.png")));
         stage.setScene(scene);
         stage.show();
     }
 
-    public void buttonClick() {
-        button.setOnAction(action -> {
-            if (textField.getText().length() > 0) {
-                OptionsParser optionsParser = new OptionsParser();
-                moveDirections = optionsParser.parse(textField.getText().split(" "));
-            }
-            try {
-                updateScene();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            engine = new SimulationEngine(moveDirections, map, positions);
-            engine.addObserver(this);
-            Thread engineThread = new Thread(engine);
-            engineThread.start();
-        });
+
+    public void buttonClick(javafx.event.ActionEvent actionEvent) {
+
+        if (textField.getText().length() > 0) {
+            OptionsParser optionsParser = new OptionsParser();
+            moveDirections = optionsParser.parse(textField.getText().split(" "));
+        }
+
+        try {
+            updateScene();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        engine = new SimulationEngine(moveDirections, map, positions);
+        engine.addObserver(this);
+        Thread engineThread = new Thread(engine);
+        engineThread.start();
     }
 }
-
