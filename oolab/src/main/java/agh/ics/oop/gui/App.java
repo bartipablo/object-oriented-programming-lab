@@ -146,6 +146,5 @@ public class App extends Application implements IGuiObserver{
         stage.setScene(scene);
         stage.show();
     }
-
 }
 
