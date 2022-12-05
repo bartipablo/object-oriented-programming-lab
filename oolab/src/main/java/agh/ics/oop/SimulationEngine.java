@@ -61,7 +61,4 @@ public class SimulationEngine implements IEngine, Runnable {
             animalsOnMapList.add(animal);
         }
     }
-
-
-
 }

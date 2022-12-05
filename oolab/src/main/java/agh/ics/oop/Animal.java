@@ -83,10 +83,10 @@ public class Animal implements IMapElement {
 
     public String getImagePath() {
         return switch (direction) {
-            case NORTH -> "src/main/resources/dogNorthDirection.png";
-            case EAST  -> "src/main/resources/dogEastDirection.png";
-            case SOUTH -> "src/main/resources/dogSouthDirection.png";
-            case WEST  -> "src/main/resources/dogWestDirection.png";
+            case NORTH -> "src/main/resources/dogDownDirection.png";
+            case EAST  -> "src/main/resources/dogRightDirection.png";
+            case SOUTH -> "src/main/resources/dogUpDirection.png";
+            case WEST  -> "src/main/resources/dogLeftDirection.png";
         };
     }
 
